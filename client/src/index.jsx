@@ -14,7 +14,16 @@ class App extends React.Component {
   }
 
   componentDidMount(){
-    this.search();
+    $.ajax({
+      url: 'http://localhost:1128/repos',
+      method: 'GET',
+      contentType: 'application/json',
+      success: (databasePullResults) => {
+        this.setState({repos: databasePullResults});
+        
+      }
+    })
+    // this.search(term);
   }
 
   search (term) {

@@ -9,7 +9,7 @@ mongoose.connect('mongodb://localhost/fetcher');
 // });
 
 let repoSchema = mongoose.Schema({
-  id: Number,
+  id: {type: Number, unique: true},
   name: String,
   username: String,
   html_url: String,
@@ -43,7 +43,7 @@ let save = (arrOfRepoObjects) => {
 };
 
 let find = () => {
-  return Repo.find().limit(25).sort('id');
+  return Repo.find().limit(25).sort({name:1});
 };
 
 let createRepo = function(oneRepoObj){
@@ -57,7 +57,6 @@ let createRepo = function(oneRepoObj){
   var newRepo = new Repo(insertRepoObj);
   return newRepo;
 };
-
 
 
 module.exports.save = save;
