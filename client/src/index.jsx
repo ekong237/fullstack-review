@@ -4,13 +4,17 @@ import $ from 'jquery';
 import Search from './components/Search.jsx';
 import RepoList from './components/RepoList.jsx';
 
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
       repos: []
     }
+  }
 
+  componentDidMount(){
+    this.search();
   }
 
   search (term) {
@@ -20,10 +24,11 @@ class App extends React.Component {
       method: 'POST',
       data: JSON.stringify({ username: term }),
       contentType: 'application/json',
-      success: function(data){
-        console.log(data);
+      success: (databasePullResults) => {
+        this.setState({repos: databasePullResults});
+        // console.log('>',databasePullResults);
       },
-      error: function(data){
+      error: (data) => {
         console.log('error' + data);
       }
     });
@@ -32,8 +37,8 @@ class App extends React.Component {
   render () {
     return (<div>
       <h1>Github Fetcher</h1>
-      <RepoList repos={this.state.repos}/>
       <Search onSearch={this.search.bind(this)}/>
+      <RepoList repos={this.state.repos}/>
     </div>)
   }
 }

@@ -12,8 +12,9 @@ app.post('/repos', function (req, res) {
   // This route should take the github username provided
   // and get the repo information from the github API, then
   // save the repo information in the database
+  var userObj = req.body;
   console.log('1. post to repos >', req.body);
-  github.getReposByUsername(req.body, res);
+  github.getReposByUsername(userObj, res);
 
 });
 
@@ -21,16 +22,7 @@ app.get('/repos', function (req, res) {
   // TODO - your code here!
   // This route should send back the top 25 repos
   console.log('reqbody>', req.body);
-  // var promise = mongodb.get();
-  // promise.then((arrOfEntries) => {
-  //   res.send(arrOfEntries);
-  // });
-
-  // getReposBackfromDatabase
-  //call find
-  //get results from promise
-  //
-
+  github.getRepos(req, res);
 });
 
 let port = 1128;

@@ -29,10 +29,17 @@ let getReposByUsername = (userObj, res) => {
       })
       .then ((databasePullResults) => {
         console.log('25:', databasePullResults);
+
         res.send(databasePullResults);
       }); 
   });
-
 }
+
+let getRepos = (req, res) => {
+  return database.find()
+  .then((databasePullResults)=>{
+    res.send(databasePullResults);
+  });
+};
 
 module.exports.getReposByUsername = getReposByUsername;
